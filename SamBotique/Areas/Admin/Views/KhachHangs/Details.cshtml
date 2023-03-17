@@ -1,0 +1,149 @@
+﻿@model SamBotique.Models.KhachHang
+
+@{
+    ViewBag.Title = "Xem Chi Tiết Khách Hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Xem</h2>
+
+<table class="table table-bordered">
+    @*<thead>*@
+        <tr>
+            <th scope="col">Tên Khách Hàng</th>
+            <th scope="col">Địa Chỉ</th>
+            <th scope="col">Số Điện Thoại</th>
+            <th scope="col">Tên Tài Khoản</th>
+            <th scope="col">Mật Khẩu</th>
+        </tr>
+    @*</thead>*@
+    @*<tbody>*@
+        <dl class="dl-horizontal">
+            <dt>
+                @*@Html.DisplayNameFor(model => model.TenKH)*@
+                Tên Khách Hàng
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TenKH)
+            </dd>
+
+            <dt>
+                @*@Html.DisplayNameFor(model => model.DiaChi)*@
+                Địa Chỉ
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DiaChi)
+            </dd>
+
+
+            <dt>
+                @*@Html.DisplayNameFor(model => model.SDT)*@
+                Số Điện Thoại
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SDT)
+            </dd>
+
+
+            <dt>
+                @*@Html.DisplayNameFor(model => model.TenTK)*@
+                Tên Tài Khoản
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TenTK)
+            </dd>
+
+            <dt>
+                @*@Html.DisplayNameFor(model => model.MK)*@
+                Mật Khẩu
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.MK)
+            </dd>
+
+            </div>
+            <p>
+                @Html.ActionLink("Edit", "KhachHangs", new { id = Model.MaKH }) |
+                @Html.ActionLink("Quay Lại", "Index")
+            </p>
+@*</tbody>*@
+</table>
+@*<div>
+    <div class="form-horizontal">
+        <h4 class="TT">Khách Hàng</h4>
+        <hr />*@
+        <!--<dl class="dl-horizontal">
+            <dt>-->
+                @*@Html.DisplayNameFor(model => model.TenKH)*@
+                <!--Tên Khách Hàng
+            </dt>
+
+            <dd>
+                Html.DisplayFor(model => model.TenKH)
+            </dd>
+
+            <dt>-->
+                @*@Html.DisplayNameFor(model => model.DiaChi)*@
+                <!--Địa Chỉ
+            </dt>
+
+            <dd>
+                Html.DisplayFor(model => model.DiaChi)
+            </dd>
+
+
+            <dt>-->
+                @*@Html.DisplayNameFor(model => model.SDT)*@
+                <!--Số Điện Thoại
+            </dt>
+
+            <dd>
+                Html.DisplayFor(model => model.SDT)
+            </dd>
+
+
+            <dt>-->
+                @*@Html.DisplayNameFor(model => model.TenTK)*@
+                <!--Tên Tài Khoản
+            </dt>
+
+            <dd>
+                Html.DisplayFor(model => model.TenTK)
+            </dd>
+
+            <dt>-->
+                @*@Html.DisplayNameFor(model => model.MK)*@
+                <!--Mật Khẩu
+            </dt>
+
+            <dd>
+                Html.DisplayFor(model => model.MK)
+            </dd>
+
+    </div>
+    <p>
+        Html.ActionLink("Edit", "KhachHangs", new { id = Model.MaKH }) |
+        Html.ActionLink("Quay Lại", "Index")
+    </p>-->
+
+    <style>
+        .content-wrapper h2 {
+            position: relative;
+            left: 17px;
+        }
+
+        .TT {
+            width: 126px;
+            height: 41px;
+            box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+            padding-top: 10px;
+            padding-left: 20px;
+            border-radius: 3px;
+            margin-left: 18px;
+        }
+    </style>

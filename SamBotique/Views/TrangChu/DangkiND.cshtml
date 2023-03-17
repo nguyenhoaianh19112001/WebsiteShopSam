@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewBag.Title = "DangkiND";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="conter">
+    <h2>TẠO TÀI KHOẢN</h2>
+    <div class="conter-con">
+        <form action="Trangchu.html">
+            <input type="text" name="customer[firstName]" id="firstName" class="input-full" placeholder="Tên" autocapitalize="words" autofocus>
+            <input type="text" name="customer[firstName]" id="firstName" class="input-full" placeholder="Họ" autocapitalize="words">
+            <input type="email" name="customer[Email]" id="Email" class="input-full" placeholder="Email" autocorrect="off" autocapitalize="off">
+            <input type="password" name="customer[password]" id="createpassword" class="input-full" placeholder="Mật khẩu">
+            <div class="back">
+                <input type="button" name="" value="Đăng ký">
+                <a href="../Assests/Trangchu.html">Trở về</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    /*------CHỉnh khung tạo tài khỏan-------*/
+
+    .conter {
+        margin: 30px 20%;
+        margin-top: 5cm;
+    }
+
+        .conter h2 {
+            text-align: center;
+        }
+
+    .conter-con form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .conter-con input {
+        width: 70%;
+        margin: 10px 0px;
+        padding: 10px;
+    }
+
+    .conter .back {
+        display: flex;
+        justify-content: space-between;
+        width: 70%;
+        align-items: center;
+    }
+
+    .conter-con .back input {
+        width: fit-content;
+        background: #fe4c50;
+    }
+
+    
+</style>

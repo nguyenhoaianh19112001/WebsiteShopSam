@@ -1,0 +1,107 @@
+﻿@model SamBotique.Models.SanPham
+
+@{
+    ViewBag.Title = "Xóa Sản Phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Xóa</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <div class="form-horizontal">
+        <h4 class="TT">Sản Phẩm</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @*@Html.DisplayNameFor(model => model.LoaiSP.TenLSP)*@
+                Tên Loại Sản Phẩm
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.LoaiSP.TenLSP)
+            </dd>
+
+            <dt>
+                @*@Html.DisplayNameFor(model => model.TenSP)*@
+                Tên Sản Phẩm
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TenSP)
+            </dd>
+
+            <dt>
+                @*@Html.DisplayNameFor(model => model.SoLuong)*@
+                Số Lượng
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SoLuong)
+            </dd>
+
+            <dt>
+                @*@Html.DisplayNameFor(model => model.Anh)*@
+                Ảnh
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Anh)
+            </dd>
+
+            <dt>
+                @*@Html.DisplayNameFor(model => model.DonGia)*@
+                Đơn Giá
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DonGia)
+            </dd>
+
+            <dt>
+                @*@Html.DisplayNameFor(model => model.MaNCC)*@
+                Mã Nhà Cung Cấp
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.MaNCC)
+            </dd>
+
+            <dt>
+                @*@Html.DisplayNameFor(model => model.MoTaSP)*@
+                Mô Tả Sản Phẩm
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.MoTaSP)
+            </dd>
+
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-default" /> |
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        }
+    </div>
+    </div>
+    <style>
+        .content-wrapper h2, h3 {
+            position: relative;
+            left: 17px;
+        }
+
+        .TT {
+            width: 126px;
+            height: 41px;
+            box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+            padding-top: 10px;
+            padding-left:23px;
+            border-radius: 3px;
+            margin-left: 18px;
+        }
+    </style>

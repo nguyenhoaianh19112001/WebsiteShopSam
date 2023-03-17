@@ -1,0 +1,66 @@
+﻿@model IEnumerable<SamBotique.Models.SanPham>
+@{
+    ViewBag.Title = "Dam";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="new_arrivals">
+    <div class="container">
+        @*<div class="row">
+                <div class="col text-center">
+                    <div class="section_title new_arrivals_title">
+                        <h2>Sản Phẩm Mới</h2>
+                    </div>
+                </div>
+            </div>*@
+        <div class="row">
+            <div class="col">
+                <div class="product-grid" data-isotope='{ "itemSelector": ".product-item", "layoutMode": "fitRows" }'>
+
+                    @foreach (var item in Model)
+                    {
+                        <div style="padding: 0 8px; margin-top: 6px; width: 25%;" class="product-item men">
+                            <div class="product discount product_filter">
+                                <div class="product_image">
+                                    <img src="~/Content/anhdoan/@item.Anh" alt="">
+                                </div>
+                                <div class="favorite favorite_left"></div>
+                                @*<div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-$20</span></div>*@
+                                <div class="product_info">
+                                    <a class="TT4" href="@Url.Action("Chitiet","TrangChu", new {id=item.MaSP.Trim() })">
+                                        <h6 class="product_name">@item.TenSP</h6>
+                                    </a>
+                                    <div class="product_price">@string.Format("{0:#,##0}", item.DonGia)đ</div>
+                                </div>
+                            </div>
+                            <div class="red_button add_to_cart_button"><a onclick="addToCart('@item.MaSP')">Thêm Vào Giỏ Hàng</a></div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .new_arrivals {
+        width: 100%;
+        position: relative;
+        top: 142px;
+        margin-bottom:4.5cm;
+    }
+    .product-item men {
+        padding: 0 8px;
+    }
+    .add_to_cart_button {
+        width: 100%;
+        visibility: hidden;
+        opacity: 0;
+        /*-webkit-transition: all 0.3s ease;
+        -moz-transition: all 0.3s ease;
+        -ms-transition: all 0.3s ease;
+        -o-transition: all 0.3s ease;*/
+        transition: all 0.3s ease;
+    }
+</style>

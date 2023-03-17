@@ -1,0 +1,237 @@
+﻿@model IEnumerable<SamBotique.Models.SanPham>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- Slider -->
+
+<div class="main_slider" style="background-image:url(/Content/images/slider_1.jpg)">
+    <div class="container fill_height">
+        <div class="row align-items-center fill_height">
+            <div class="col">
+                <div class="main_slider_content">
+                    <h6>BỘ SƯU TẬP XUÂN / HÈ 2021</h6>
+                    <h1>Giảm giá 20% cho hàng mới về</h1>
+                    <div class="red_button shop_now_button"><a href="#">Mua ngay</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- New Arrivals -->
+<div class="new_arrivals">
+    <div class="container">
+        <div class="row">
+            <div class="col text-center">
+                <div class="section_title new_arrivals_title">
+                    <h2>Sản Phẩm Mới</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="product-grid" data-isotope='{ "itemSelector": ".product-item", "layoutMode": "fitRows" }'>
+
+                    @foreach (var item in Model)
+                    {
+                        <div class="product-item men">
+                            <div class="product discount product_filter">
+                                <div class="product_image">
+                                    <img src="~/Content/anhdoan/@item.Anh" alt="">
+                                </div>
+                                @*<div class="favorite favorite_left"></div>*@
+                                @*<div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-$20</span></div>*@
+                            <div class="product_info">
+                                <a class="TT4" href="@Url.Action("Chitiet","TrangChu", new {id=item.MaSP.Trim() })">
+                                    <h6 class="product_name">@item.TenSP</h6>
+                                </a>
+
+                                <div class="product_price">@string.Format("{0:#,##0}", item.DonGia)đ</div>
+                            </div>
+                            </div>
+                            <div class="red_button add_to_cart_button"><a onclick="addToCart('@item.MaSP')">Thêm Vào Giỏ Hàng</a></div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Deal of the week -->
+
+<div class="deal_ofthe_week">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                    <div class="deal_ofthe_week_img">
+                        <img src="/Content/images/Ảnh Bìa 2.png" alt="">
+                    </div>
+                </div>
+            <div class="col-lg-6 text-right deal_ofthe_week_col">
+                <div class="deal_ofthe_week_content d-flex flex-column align-items-center float-right">
+                    <div class="section_title">
+                        <h2>Deal Hot Của Tuần</h2>
+                    </div>
+                    <ul class="timer">
+                        <li class="d-inline-flex flex-column justify-content-center align-items-center">
+                            <div id="day" class="timer_num">07</div>
+                            <div class="timer_unit">Ngày</div>
+                        </li>
+                        <li class="d-inline-flex flex-column justify-content-center align-items-center">
+                            <div id="hour" class="timer_num">15</div>
+                            <div class="timer_unit">Giờ</div>
+                        </li>
+                        <li class="d-inline-flex flex-column justify-content-center align-items-center">
+                            <div id="minute" class="timer_num">45</div>
+                            <div class="timer_unit">Phút</div>
+                        </li>
+                        <li class="d-inline-flex flex-column justify-content-center align-items-center">
+                            <div id="second" class="timer_num">23</div>
+                            <div class="timer_unit">Giây</div>
+                        </li>
+                    </ul>
+                    <div class="red_button deal_ofthe_week_button"><a href="#">Mua Ngay</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Best Sellers -->
+
+<div class="best_sellers">
+    <div class="container">
+        <div class="row">
+                <div class="col text-center">
+                    <div class="section_title new_arrivals_title">
+                        <h2>Sam Boutique</h2>
+                    </div>
+                </div>
+            </div>
+        <div class="row">
+            <div class="col">
+                
+                    <div class="product_slider_container">
+                        <div class="owl-carousel owl-theme product_slider">
+
+                             
+                            @foreach (var item in Model)
+                            {
+                                <div class="owl-item product_slider_item">
+                                    <div class="product-item">
+                                        <div class="product discount">
+                                            <div class="product_image">
+                                                @*<a href="@Url.Action("Chitiet","TrangChu", new {id=item.MaSP.Trim() })>*@
+                                                <img src="~/Content/anhdoan/@item.Anh" alt="">
+                                                  @*</a>*@
+                                            </div>
+                                            @*<div class="favorite favorite_left"></div>*@
+
+                                            <div class="product_info">
+                                                <a class="TT4" href="@Url.Action("Chitiet","TrangChu", new {id=item.MaSP.Trim() })">
+                                                    <h6 style="white-space: nowrap" class="product_name">@item.TenSP</h6>
+                                                </a>
+                                                <div class="product_price">@item.DonGia</div>
+                                            </div>
+                                            <div class="red_button_1 add_to_cart_button_1"><a onclick="addToCart('@item.MaSP')">Thêm Vào Giỏ Hàng</a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            </div>
+                    </div>
+              
+                </div>
+               
+        </div>
+    </div>
+</div>
+
+
+<style>
+    .product_image img {
+     
+        border-radius: 2px;
+    }
+    .red_button_1 {
+        display: -webkit-inline-box;
+        display: -moz-inline-box;
+        display: -ms-inline-flexbox;
+        display: -webkit-inline-flex;
+        display: inline-flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: auto;
+        height: 40px;
+        background: #fe4c50;
+        border-radius: 3px;
+        -webkit-transition: all 0.3s ease;
+        -moz-transition: all 0.3s ease;
+        -ms-transition: all 0.3s ease;
+        -o-transition: all 0.3s ease;
+        transition: all 0.3s ease;
+        position:absolute;
+        top:300px;
+    }
+
+        .red_button_1:hover {
+            background: #FE7C7F !important;
+        }
+
+        .red_button_1 a {
+            display: block;
+            color: #FFFFFF;
+            text-transform: uppercase;
+            font-size: 14px;
+            font-weight: 500;
+            text-align: center;
+            line-height: 40px;
+            width: 100%;
+        }
+
+    .shop_now_button{
+        width: 140px;
+        margin-top: 32px;
+    }
+    .add_to_cart_button {
+        width: 100%;
+        visibility: hidden;
+        opacity: 0;
+        /*-webkit-transition: all 0.3s ease;
+        -moz-transition: all 0.3s ease;
+        -ms-transition: all 0.3s ease;
+        -o-transition: all 0.3s ease;*/
+        transition: all 0.3s ease;
+    }
+
+        .add_to_cart_button_1 a {
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+    .product-item:hover .add_to_cart_button_1 {
+        visibility: visible;
+        opacity: 1;
+    }
+    .account_selection li a{
+        font-size: 10px;
+    }
+    input#searchString {
+        /* padding-left: 12px; */
+        border: none;
+        /* background: wheat; */
+    }
+    button#searchsubmit {
+        height: 24px;
+        width: 25px;
+        border: none;
+        border-radius: 2px;
+        color: white;
+        background: #fe4c50;
+    }
+</style>

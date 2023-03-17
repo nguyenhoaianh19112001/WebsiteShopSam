@@ -1,0 +1,63 @@
+﻿@model SamBotique.Models.NhaCungCap
+
+@{
+    ViewBag.Title = "Xem Chi Tiết Nhà Cung Cấp";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Xem</h2>
+
+<div>
+    <div class="form-horizontal">
+        <h4 class="TT">Nhà Cung Cấp</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @*@Html.DisplayNameFor(model => model.TenNCC)*@
+                Tên Nhà Cung Cấp
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TenNCC)
+            </dd>
+
+            <dt>
+                @*@Html.DisplayNameFor(model => model.DiaChi)*@
+                Địa Chỉ
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DiaChi)
+            </dd>
+
+            <dt>
+                @*@Html.DisplayNameFor(model => model.DienThoai)*@
+                Điện Thoại
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DienThoai)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.MaNCC }) |
+        @Html.ActionLink("Quay Lại", "Index")
+    </p>
+    <style>
+        .content-wrapper h2 {
+            position: relative;
+            left: 17px;
+        }
+
+        .TT {
+            width: 126px;
+            height: 41px;
+            box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+            padding-top: 10px;
+            padding-left: 11px;
+            border-radius: 3px;
+            margin-left: 18px;
+        }
+    </style>

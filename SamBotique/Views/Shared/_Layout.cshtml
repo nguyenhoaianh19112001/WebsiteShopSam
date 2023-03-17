@@ -1,0 +1,472 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Sam Boutique</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Colo Shop Template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/Content/styles/bootstrap4/bootstrap.min.css">
+    <link href="/Content/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="/Content/plugins/OwlCarousel2-2.2.1/owl.carousel.css">
+    <link rel="stylesheet" type="text/css" href="/Content/plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
+    <link rel="stylesheet" type="text/css" href="/Content/plugins/OwlCarousel2-2.2.1/animate.css">
+    <link rel="stylesheet" type="text/css" href="/Content/styles/main_styles.css">
+    <link rel="stylesheet" type="text/css" href="/Content/styles/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+    @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">*@
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+     @*Latest compiled JavaScript*@ 
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+</head>
+
+<body>
+
+    <div class="super_container">
+
+        <!-- Header -->
+
+        <header class="header trans_300">
+
+            <!-- Top Navigation -->
+
+            <div class="top_nav">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="top_nav_left">Miễn phí vẫn chuyển cho đơn hàng từ 500.000 VNĐ trở lên</div>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <div class="top_nav_right">
+                                <ul class="top_nav_menu">
+
+                                    <!-- Currency / Language / My Account -->
+
+                                    <li class="account">
+                                        <a href="#">
+                                            Tài khoản
+                                            <i class="fa fa-angle-down"></i>
+                                        </a>
+                                        <ul class="account_selection">
+                                            <li><a href="@Url.Action("DangNhapND","TrangChu")"><i class="fa fa-sign-in" aria-hidden="true"></i>Đăng Nhập</a></li>
+                                            <li><a href="@Url.Action("DangKiND","TrangChu")"><i class="fa fa-user-plus" aria-hidden="true"></i>Đăng Ký</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Navigation -->
+
+            <div class="main_nav_container">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 text-right">
+                            <div class="logo_container">
+                                <a href="@Url.Action("Index","TrangChu")">Sam<span>&nbsp;Boutique</span></a>
+                            </div>
+                            <nav class="navbar">
+                                <ul class="navbar_menu">
+                                    <li><a href="@Url.Action("Index","TrangChu")">Trang chủ</a></li>
+                                    <li><a href="@Url.Action("Dam","TrangChu")">đầm</a></li>
+                                    <li><a href="@Url.Action("Ao","TrangChu")">áo</a></li>
+                                    <li><a href="@Url.Action("Quan","TrangChu")">quần</a></li>
+                                    <li><a href="@Url.Action("Vay","TrangChu")">chân váy</a></li>
+
+                                </ul>
+                                <ul class="navbar_user">
+                                    <li>
+                                        <div class="header-icons">
+                                            @using (Html.BeginForm("Search", "TrangChu", FormMethod.Get)) // Phần thay đổi
+                                            {
+                                                @Html.TextBox("searchString", "", new { placeholder = "Tìm kiếm..." })
+                                                <button class="fa fa-search" type="submit" id="searchsubmit" style="margin-right:30px;"></button>
+                                            }
+                                        </div>
+                                    </li>
+                                    <li><a href="@Request.Url.Scheme://@Request.Url.Authority/Views/Home/Index"><i class="fa fa-user" aria-hidden="true"></i></a></li>
+                                    <li class="checkout">
+                                        <a href="/Cart/Index">
+                                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                            @*<span id="checkout_items" class="checkout_items">2</span>*@
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="hamburger_container">
+                                    <i class="fa fa-bars" aria-hidden="true"></i>
+                                </div>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </header>
+
+        <div class="fs_menu_overlay"></div>
+
+        @RenderBody()
+
+        <!-- Benefit -->
+
+        <div class="benefit">
+            <div class="container">
+                <div class="row benefit_row">
+                    <div class="col-lg-3 benefit_col">
+                        <div class="benefit_item d-flex flex-row align-items-center">
+                            <div class="benefit_icon"><i class="fa fa-truck" aria-hidden="true"></i></div>
+                            <div class="benefit_content">
+                                <h6>Miễn phí vẫn chuyển</h6>
+                                <p>Cho Đơn Hàng Từ 500.000 VNĐ</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 benefit_col">
+                        <div class="benefit_item d-flex flex-row align-items-center">
+                            <div class="benefit_icon"><i class="fa fa-money" aria-hidden="true"></i></div>
+                            <div class="benefit_content">
+                                <h6>Thanh toán</h6>
+                                <p>Visa, Mastercard, Tiền Mặt</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 benefit_col">
+                        <div class="benefit_item d-flex flex-row align-items-center">
+                            <div class="benefit_icon"><i class="fa fa-undo" aria-hidden="true"></i></div>
+                            <div class="benefit_content">
+                                <h6>Bảo hành 1 tháng</h6>
+                                <p>Áp Dụng Theo Chính Sách Bảo Hành Của Sam Boutique</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 benefit_col">
+                        <div class="benefit_item d-flex flex-row align-items-center">
+                            <div class="benefit_icon"><i class="fa fa-clock-o" aria-hidden="true"></i></div>
+                            <div class="benefit_content">
+                                <h6>Giờ Làm Việc</h6>
+                                <p>8AM - 09PM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Newsletter -->
+
+        <div class="newsletter">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="newsletter_text d-flex flex-column justify-content-center align-items-lg-start align-items-md-center text-center">
+                            <h4>Bản Tin</h4>
+                            <p>Đăng ký nhận tin của chúng tôi và được giảm giá 20% khi mua hàng đầu tiên</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <form action="post">
+                            <div class="newsletter_form d-flex flex-md-row flex-column flex-xs-column align-items-center justify-content-lg-end justify-content-center">
+                                <input id="newsletter_email" type="email" placeholder="Email của bạn" required="required" data-error="Valid email is required.">
+                                <button id="newsletter_submit" type="submit" class="newsletter_submit_btn trans_300" value="Submit">Đăng Ký</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+
+        <div class="wrapper">
+            <div class="wrapper-item">
+                <div class="info">
+                    <h3>THÔNG TIN CHUNG</h3>
+                </div>
+                <diV class="info-con">
+                    <li><a href="#"><i class="fas fa-home"></i><span>Yên Mỹ, Hưng Yên </span></a></li>
+                    <li><a href="#"><i class="fas fa-phone"></i><span>0366378957</span> </a></li>
+                    <li><a href="#"><i class="fas fa-envelope"></i><span>hoai19112001anh@gmail.com</span></a></li>
+                </diV>
+                <div class="thongtin">
+                    <ul>
+                        <a href=""><img class="ATT" src="~/Content/images/facebook.png" alt=""></a>
+                        <a href=""><img class="ATT" src="~/Content/images/youte.png" alt=""></a>
+                        <a href=""><img class="ATT" src="~/Content/images/spotify.png" alt=""></a>
+                    </ul>
+                </div>
+            </div>
+            <div class="policy">
+                <h3>CHÍNH SÁCH</h3>
+                <li><a href="@Url.Action("HDThanhToan","TrangChu")" style="font-size:17px;"> Phương thức thanh toán</a></li>
+                <li><a href="@Url.Action("MuaHang","TrangChu")" style="font-size:17px;">Hướng dẫn mua hàng</a></li>
+                <li><a href="@Url.Action("DoiTra","TrangChu")" style="font-size:17px;">Chính sách đổi trả và hoàn tiền</a></li>
+                <li><a href="@Url.Action("BaoHanh","TrangChu")" style="font-size:17px;">Chính sách bảo hành</a></li>
+            </div>
+            <div class="about">
+                <h3>SAM BOUTIQUE</h3>
+                <li><a href="@Url.Action("GioiThieu","TrangChu")" style="font-size:17px;">Giới thiệu</a></li>
+                <li><a href="#" style="font-size:17px;">Liên hệ</a></li>
+                <li><a href="../Assests/Hoptac.html" style="font-size:17px;">Hợp tác kinh doanh</a></li>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="/Content/js/jquery-3.2.1.min.js"></script>
+    <script src="/Content/styles/bootstrap4/popper.js"></script>
+    <script src="/Content/styles/bootstrap4/bootstrap.min.js"></script>
+    <script src="/Content/plugins/Isotope/isotope.pkgd.min.js"></script>
+    <script src="/Content/plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+    <script src="/Content/plugins/easing/easing.js"></script>
+    <script src="/Content/js/custom.js"></script>
+
+
+    <style>
+        .ATT {
+            max-width: 30px;
+            margin-left: 10px;
+        }
+
+        .wrapper {
+            margin-top: 50px;
+            background-color: rgb(172, 169, 169);
+            padding-bottom: 100px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .info h3 {
+            padding-top: 50px;
+        }
+
+        .wrapper li a {
+            text-decoration: none;
+            color: rgb(70, 40, 40);
+            display: block;
+        }
+
+        .info-con span {
+            margin-left: 10px;
+        }
+
+        .wrapper li {
+            list-style: none;
+            margin: 10px 0px;
+        }
+
+        .info-con li a:hover,
+        .info-con li a:active {
+            /*border-bottom: 2px solid rgb(83, 51, 51);*/
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .info-con li a {
+            padding: 1px 0;
+            font-weight: 500;
+            transition: all 0.4s;
+        }
+
+        .policy h3 {
+            padding-top: 50px;
+        }
+
+        .policy li a {
+            text-decoration: none;
+            color: rgb(70, 40, 40);
+        }
+
+        .policy > li {
+            list-style: none;
+        }
+
+            .policy > li a {
+                transition: all 0.4s;
+            }
+
+        .policy li a:hover,
+        .policy li a:active {
+            /*border-bottom: 2px solid rgb(83, 51, 51);*/
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .policy li a {
+            padding: 1px 0;
+            font-weight: 500;
+        }
+
+        .about h3 {
+            padding-top: 50px;
+        }
+
+        .about > li {
+            list-style: none;
+        }
+
+            .about > li a {
+                transition: all 0.4s;
+            }
+
+        .about li a:hover,
+        .about li a:active {
+            /* border-bottom: 2px solid rgb(83, 51, 51);*/
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .about li a {
+            padding: 1px 0;
+            font-weight: 500;
+            text-decoration: none;
+            color: rgb(70, 40, 40);
+        }
+
+        .copylink {
+            background-color: rgb(172, 169, 169);
+        }
+
+            .copylink p {
+                color: rgb(63, 49, 49);
+                display: block;
+                display: flex;
+                justify-content: center;
+            }
+
+        .thongtin ul li a i {
+            font-weight: 900;
+            font-size: 150%;
+            transition: all 0.2s;
+        }
+
+        .thongtin ul li {
+            display: inline-block;
+            margin-left: 20px;
+        }
+
+            .thongtin ul li a i:hover {
+                transform: scale(1.3);
+                color: black;
+            }
+
+        .product_image img {
+            border-radius: 2px;
+        }
+
+        .red_button_1 {
+            display: -webkit-inline-box;
+            display: -moz-inline-box;
+            display: -ms-inline-flexbox;
+            display: -webkit-inline-flex;
+            display: inline-flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: auto;
+            height: 40px;
+            background: #fe4c50;
+            border-radius: 3px;
+            -webkit-transition: all 0.3s ease;
+            -moz-transition: all 0.3s ease;
+            -ms-transition: all 0.3s ease;
+            -o-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+            position: absolute;
+            top: 300px;
+        }
+
+            .red_button_1:hover {
+                background: #FE7C7F !important;
+            }
+
+            .red_button_1 a {
+                display: block;
+                color: #FFFFFF;
+                text-transform: uppercase;
+                font-size: 14px;
+                font-weight: 500;
+                text-align: center;
+                line-height: 40px;
+                width: 100%;
+            }
+
+        .shop_now_button {
+            width: 140px;
+            margin-top: 32px;
+        }
+
+        .add_to_cart_button_1 {
+            width: 100%;
+            visibility: hidden;
+            opacity: 0;
+            -webkit-transition: all 0.3s ease;
+            -moz-transition: all 0.3s ease;
+            -ms-transition: all 0.3s ease;
+            -o-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+        }
+
+            .add_to_cart_button_1 a {
+                font-size: 12px;
+                font-weight: 600;
+            }
+
+        .product-item:hover .add_to_cart_button_1 {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .account_selection li a {
+            font-size: 10px;
+        }
+
+        input#searchString {
+            /* padding-left: 12px; */
+            border: none;
+            /* background: wheat; */
+        }
+
+        button#searchsubmit {
+            height: 24px;
+            width: 25px;
+            border: none;
+            border-radius: 2px;
+            color: white;
+            background: #fe4c50;
+        }
+    </style>
+    <script>
+        function addToCart(id) {
+            $.ajax({
+                url: "/XuLyGioHang/PostAddToCard?id=" + id,
+                method: "POST",
+                data: "",
+                contentType: "application/json",
+                dataType: ""
+            }).done(function (response) {
+                console.log(response);
+                if (response.Data.status == "OK") {
+                    alert("Thêm giỏ hàng thành công");
+                }
+                else if (response.Data.status == "SL") {
+                    alert("Đã tăng số lượng sản phẩm lên " + response.Data.SL);
+                }
+                else {
+                    alert("Có lỗi xảy ra thử lại sau");
+                }
+            }).fail(function () {
+                alert("Có lỗi xảy ra thử lại sau");
+            })
+        }
+    </script>
+</body>
+
+
+</html>

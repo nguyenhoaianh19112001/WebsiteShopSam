@@ -1,0 +1,92 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Login Admin</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script type="text/javascript" src="~/Areas/Admin/Luutru/vendor/bootstrap.js"></script>
+    <script src="~/Areas/Admin/Luutru/js/cdn.js"></script>
+    <script src="~/Areas/Admin/Luutru/js/wow.js"></script>
+    <script src="~/Areas/Admin/Luutru/js/isotope.pkgd.min.js"></script>
+    <script src="~/Areas/Admin/Luutru/jquery.easing.1.3.js"></script>
+    <link rel="stylesheet" href="~/Areas/Admin/Luutru/vendor/bootstrap.css" />
+    <link rel="stylesheet" href="~/Areas/Admin/Luutru/vendor/font-awesome.css" />
+    <link rel="icon" href="https://uma.vn/media/favicon/default/favicon_1_.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="https://uma.vn/media/favicon/default/favicon_1_.ico" type="image/x-icon" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.1/TweenMax.min.js"></script>
+    <link rel="stylesheet" href="~/Areas/Admin/Luutru/animate.css" />
+    <link rel="stylesheet" href="~/Areas/Admin/Luutru/Đăng nhập.css">
+    <script src="~/Areas/Admin/Luutru/Đăng nhập.js"></script>
+    <!--dùng để nhìn thấy pass và lưu mật khẩu-->
+</head>
+
+<body>
+    <div class="khoi_dangnhap">
+        <div class="dangnhap">
+            <div class="khoitrai">
+                <img src="~/Areas/Admin/Luutru/anhdoan/anh.jpg" alt="">
+            </div>
+            <div class="khoiphai">
+                <div class="nd_dangnhap">
+                    <h3>Đăng nhập</h3>
+                    <div class="taikhoan">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                        <input class="input" type="text" name="" id="tk" placeholder="Tài khoản" onfocus="this.placeholder = ''">
+                    </div>
+                    <div class="matkhau">
+                        <i class="fa fa-lock" aria-hidden="true"></i>
+                        <input class="input" type="password" id="mk" name="" placeholder="Mật khẩu" onfocus="this.placeholder = ''">
+                        <div class="mat"></div>
+                    </div>
+                    <div class="nhomk">
+                        <div class="otich"></div>
+                        <span>Lưu mật khẩu</span>
+                    </div>
+                    <a style="cursor:pointer;" class="login">Đăng nhập</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/Content/js/jquery-3.2.1.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var btn = document.querySelector('.login');
+            var input = document.querySelectorAll('.input');
+            btn.onclick = function () {
+                if (input[0].value.length != 0 && input[1].value.length) {
+                    $.ajax({
+                        url: "/Admin/Home/PostCheckLogin?id=" + input[0].value + "*" + input[1].value,
+                        method: "POST",
+                        data: "",
+                        contentType: "application/json",
+                        dataType: ""
+                    }).done(function (response) {
+                        console.log(response);
+                        if (response.Data.status == "OK") {
+                            window.location = '/Admin/Home/Index';
+                        }
+                        else if (response.Data.status == "NO OK") {
+                            alert("Sai tài khoản hoặc mật khẩu");
+                        }
+                        else {
+                            alert("Có lỗi xảy ra thử lại sau");
+                        }
+                    }).fail(function () {
+                        alert("Có lỗi xảy ra thử lại sau");
+                    })
+                }
+                else {
+                    alert("Thông tin không được bỏ trống");
+                }
+            }
+        }, false)
+    </script>
+</body>
+
+</html>

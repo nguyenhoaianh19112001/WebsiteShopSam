@@ -1,0 +1,209 @@
+﻿@model IEnumerable<SamBotique.Models.SanPham>
+
+@{
+    ViewBag.Title = "Quản Lý Sản Phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    int stt = 1;
+}
+
+<h2>Quản Lý Sản Phẩm</h2>
+
+<div class="TM">
+    <p class="TM1">
+        @Html.ActionLink("Thêm Mới Sản Phẩm", "Create")
+    </p>
+</div>
+@using (Html.BeginForm())
+{
+    <p>
+        @Html.TextBox("SearchString") <input type="submit" value="Tìm kiếm" />
+    </p>
+}
+<table class="table">
+    <tr>
+        <th>
+            STT
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.LoaiSP.TenLSP)*@
+            Tên Loại Sản Phẩm
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.TenSP)*@
+            Tên Sản Phẩm
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.SoLuong)*@
+            Số Lượng
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Anh)*@
+            Ảnh
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.DonGia)*@
+            Đơn Giá
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.MaNCC)*@
+            Mã Nhà Cung Cấp
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.MoTaSP)*@
+            Mô Tả Sản Phẩm
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @(stt ++)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LoaiSP.TenLSP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenSP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SoLuong)
+            </td>
+            <td>
+                @*<img height="100" width="100" src="/Blob/GetByName/@Html.DisplayFor(modelItem => item.Anh)" alt="Alternate Text" />*@
+                <img class="A1" src="~/Areas/Admin/LuuTru/anhdoan/@Html.DisplayFor(modelItem => item.Anh)" alt="img" />
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.DonGia)*@
+                @string.Format("{0:#,##0}", item.DonGia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaNCC)
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.MoTaSP)*@
+                @{
+                    string[] a = item.MoTaSP.ToString().Split(new string[] { " " }, StringSplitOptions.None);  /*khai báo 1 mảng a để nhận tất cả những từ tách trên đoạn văn bản, tách dùng hàm split , truyền vào kí tự tách ở đây truyền vào kí tự tách là dấu cách */
+                    string luutru = " "; /*khai báo 1 biến lưu trữ, biến này là biến rỗng để mk làm j thì đưa vào biến tạm này*/
+                    if (a.Length < 10) /*kiểm tra nếu biến nhỏ hơn 10 từ */
+                    {
+                        luutru = item.MoTaSP; /*gắn phần mô tả vào trong biến lưu trữ*/
+                    }
+                    else
+                    {
+                        for (int i = 0; i < 10; i++) /*sau khi tách xog thì ghép lại bằng cách duyệt lần lượt từng vòng lặp*/
+                        {
+                            luutru += a[i] + " ";
+                        }
+                        luutru += "..."; /*sau khi duyệt xog thì cộng thêm dấu 3 chấm*/
+                    }
+                    <div title="@item.MoTaSP">
+                        @*để hiển thị mô tả khi mk di chuột qua*@
+                        @luutru
+                    </div>
+                }
+            </td>
+            <td>
+                <a href="@Url.Action("Edit", "SanPhams", new {  id = item.MaSP.Trim() })"><img class="A2" src="~/Areas/Admin/Luutru/Sửa.png" alt=""></a>@*<br />*@
+                <a href="@Url.Action("Details", "SanPhams", new {  id = item.MaSP.Trim() })"><img class="A2" src="~/Areas/Admin/Luutru/Xem.png" alt=""></a>@*<br />*@
+                <a href="@Url.Action("Delete", "SanPhams", new {  id = item.MaSP.Trim() })"><img class="A2" src="~/Areas/Admin/Luutru/Xóa.png" alt=""></a>@*<br />*@
+            </td>
+        </tr>
+    }
+
+</table>
+<style>
+    .TM1 {
+        margin-left: 0.5cm;
+        font-weight: 700;
+    }
+
+    .A1 {
+        border-radius: 5px;
+        max-width: 100px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    .A2 {
+        max-width: 23px;
+        margin-top: 4px;
+    }
+
+        .A2:hover {
+            transform: scale(1.1);
+        }
+
+    td {
+        color: black;
+        font-weight: 700;
+    }
+
+    table.table {
+        box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+        border-radius: 5px;
+        color: #5680E9;
+        font-size: 107%;
+    }
+
+    .table td, .table th {
+        padding: .75rem;
+        vertical-align: top;
+        border-top: 4px solid #e3e6f0;
+        text-align: center;
+    }
+
+    h1 {
+        color: black;
+        font-weight: 700;
+    }
+
+    .luan-icon {
+        font-weight: 500;
+    }
+
+    td.tennhacsi, td.tenalbum {
+        text-align: inherit;
+    }
+
+    .tr1 {
+        background-color: black;
+        color: white;
+    }
+
+    .TM {
+        box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+        width: 161px;
+        height: 1cm;
+        padding-top: 10px;
+        border-radius: 3px;
+        margin-bottom: 0.5cm;
+        margin-left: 0.1cm;
+    }
+
+    .content-wrapper h2 {
+        position: relative;
+        left: 17px;
+    }
+
+    input#SearchString {
+        width: 188px;
+        height: 34px;
+        margin-left: 4px;
+        border: none;
+        box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+    }
+
+        input#SearchString:focus {
+            outline: none;
+        }
+
+    input[type="submit"] {
+        height: 34px;
+        border: none;
+        background-color: #ecf0f5;
+        color: black;
+        box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+        font-weight: 650;
+    }
+</style>

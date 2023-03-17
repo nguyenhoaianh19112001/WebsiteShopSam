@@ -1,0 +1,151 @@
+﻿@model IEnumerable<SamBotique.Models.NhaCungCap>
+
+@{
+    ViewBag.Title = "Quản Lý Nhà Cung Cấp";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Quản Lý Nhà Cung Cấp</h2>
+
+<div class="TM">
+    <p class="TM1">
+        @Html.ActionLink("Thêm Mới Nhà Cung Cấp", "Create")
+    </p>
+</div>
+@using (Html.BeginForm())
+{
+    <p>
+        @Html.TextBox("SearchString") <input type="submit" value="Tìm kiếm" />
+    </p>
+}
+<table class="table">
+    <tr>
+        <th>
+            @*@Html.DisplayNameFor(model => model.TenNCC)*@
+            Tên Nhà Cung Cấp
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.DiaChi)*@
+            Địa Chỉ
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.DienThoai)*@
+            Điện Thoại
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenNCC)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiaChi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DienThoai)
+            </td>
+            <td>
+                <a href="@Url.Action("Edit", "NhaCungCaps", new { id=item.MaNCC.Trim() }) "><img class="A2" src="~/Areas/Admin/Luutru/Sửa.png" alt=""></a>
+                <a href="@Url.Action("Details", "NhaCungCaps", new { id = item.MaNCC.Trim() }) "><img class="A2" src="~/Areas/Admin/Luutru/Xem.png" alt=""></a>
+                <a href="@Url.Action("Delete", "NhaCungCaps", new { id = item.MaNCC.Trim() }) "><img class="A2" src="~/Areas/Admin/Luutru/Xóa.png" alt=""></a>
+            </td>
+        </tr>
+    }
+
+</table>
+<style>
+    .TM1 {
+        margin-left: 0.5cm;
+        font-weight: 700;
+    }
+
+    .A1 {
+        border-radius: 5px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    .A2 {
+        max-width: 23px;
+        margin-top: 4px;
+    }
+
+        .A2:hover {
+            transform: scale(1.1);
+        }
+
+    td {
+        color: black;
+        font-weight: 700;
+    }
+
+    table.table {
+        box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+        border-radius: 5px;
+        color: #5680E9;
+        font-size: 107%;
+    }
+
+    .table td, .table th {
+        padding: .75rem;
+        vertical-align: top;
+        border-top: 4px solid #e3e6f0;
+        text-align: center;
+    }
+
+    h1 {
+        color: black;
+        font-weight: 700;
+    }
+
+    .luan-icon {
+        font-weight: 500;
+    }
+
+    td.tennhacsi, td.tenalbum {
+        text-align: inherit;
+    }
+
+    .tr1 {
+        background-color: black;
+        color: white;
+    }
+
+    .TM {
+        box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+        width: 185px;
+        height: 1cm;
+        padding-top: 10px;
+        border-radius: 3px;
+        margin-bottom: 0.5cm;
+        margin-left: 0.1cm;
+    }
+
+    .content-wrapper h2 {
+        position: relative;
+        left: 17px;
+    }
+
+    input#SearchString {
+        width: 188px;
+        height: 34px;
+        margin-left: 4px;
+        border: none;
+        box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+    }
+
+        input#SearchString:focus {
+            outline: none;
+        }
+
+    input[type="submit"] {
+        height: 34px;
+        border: none;
+        background-color: #ecf0f5;
+        color: black;
+        box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+        font-weight: 650;
+    }
+</style>

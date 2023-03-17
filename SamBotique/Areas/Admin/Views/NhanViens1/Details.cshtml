@@ -1,0 +1,97 @@
+﻿@model SamBotique.Models.NhanVien
+
+@{
+    ViewBag.Title = "Xem Chi Tiết Nhân Viên";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Xem</h2>
+
+<div>
+    <div class="form-horizontal">
+        <h4 class="TT">Chi Tiết Nhân Viên</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @*@Html.DisplayNameFor(model => model.TenNV)*@
+                Tên Nhân Viên
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TenNV)
+            </dd>
+
+            <dt>
+                @*@Html.DisplayNameFor(model => model.GioiTinh)*@
+                Giới Tính
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.GioiTinh)
+            </dd>
+
+            <dt>
+                @*@Html.DisplayNameFor(model => model.DiaChi)*@
+                Địa Chỉ
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DiaChi)
+            </dd>
+
+            <dt>
+                @*@Html.DisplayNameFor(model => model.SDT)*@
+                Số Điện Thoại
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SDT)
+            </dd>
+
+            <dt>
+                @*@Html.DisplayNameFor(model => model.TaiKhoan)*@
+                Tài Khoản
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TaiKhoan)
+            </dd>
+
+            <dt>
+                @*@Html.DisplayNameFor(model => model.MK)*@
+                Mật Khẩu
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.MK)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Sửa", "Edit", new { id = Model.MaNV }) |
+        @Html.ActionLink("Danh Sách Nhân Viên", "Index")
+    </p>
+  
+        @*dt, dd {
+            font-size: 140%;
+        }*@
+
+        <style >
+        .content-wrapper h2 {
+            position: relative;
+            left: 17px;
+        }
+
+        .TT {
+            width: 164px;
+            height: 41px;
+            box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+            padding-top: 10px;
+            padding-left: 11px;
+            border-radius: 3px;
+            margin-left: 18px;
+        }
+  
+
+    </style>

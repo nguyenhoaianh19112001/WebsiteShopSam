@@ -1,0 +1,114 @@
+﻿@model IEnumerable<SamBotique.Models.Blob>
+
+@{
+    ViewBag.Title = "Quản Lý Ảnh";
+}
+
+<h2>Quản Lý Ảnh</h2>
+
+<div class="TM">
+    <p class="TM1">
+        @Html.ActionLink("Thêm Mới Ảnh", "Create")
+    </p>
+</div>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Content)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            <img height="150" width="150" src="@item.Content" alt="Alternate Text" />
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
+<style>
+    .TM1 {
+        margin-left: 0.5cm;
+        font-weight: 600;
+    }
+
+    .A1 {
+        border-radius: 5px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    .A2 {
+        max-width: 23px;
+        margin-top: 4px;
+    }
+
+        .A2:hover {
+            transform: scale(1.1);
+        }
+
+    td {
+        color: black;
+        font-weight: 700;
+    }
+
+    table.table {
+        box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+        border-radius: 5px;
+        color: #5680E9;
+        font-size: 107%;
+    }
+
+    .table td, .table th {
+        padding: .75rem;
+        vertical-align: top;
+        border-top: 4px solid #e3e6f0;
+        text-align: center;
+    }
+
+    h1 {
+        color: black;
+        font-weight: 700;
+    }
+
+    .luan-icon {
+        font-weight: 500;
+    }
+
+    td.tennhacsi, td.tenalbum {
+        text-align: inherit;
+    }
+
+    .tr1 {
+        background-color: black;
+        color: white;
+    }
+
+
+    .TM {
+        box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+        width: 130px;
+        height: 1cm;
+        padding-top: 10px;
+        border-radius: 3px;
+        margin-bottom: 0.5cm;
+        margin-left: 0.1cm;
+    }
+
+    .content-wrapper h2 {
+        position: relative;
+        left: 17px;
+    }
+</style>

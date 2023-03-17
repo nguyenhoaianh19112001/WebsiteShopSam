@@ -1,0 +1,279 @@
+﻿@model List<SamBotique.Models.SanPham>
+@{
+    ViewBag.Title = "ThanhToan";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div style="z-index: 10000;" class="container">
+    <section>
+        <div style="margin-top: 180px;" id="bang" class="row-container container">
+            <div class="wrap-columns">
+                <div class="left ">
+                    <h2>Thông tin mua hàng</h2>
+                    <form id="frmDangky">
+                        <input class="input" type="text" name="" placeholder="Họ và tên" id="txtten">
+                        <input class="input" type="text" name="" placeholder="SĐT" id="txtsdt">
+                        <input class="input" type="text" name="" placeholder="Email" id="txtdc">
+                        <input class="input" type="text" name="" placeholder="Địa chỉ" id="txtdc">
+                        <!--textarea placeholder="Chú thích" id="txtgc"></textarea-->
+                    </form>
+                </div>
+
+                <div class="right ">
+                    <h2>Đơn hàng </h2>
+                    @foreach (var item in Model)
+                    {
+                        <div class="sp">
+                            <p>@item.TenSP</p>
+                            <h3>@String.Format("{0:#,##0.##}", item.SoLuong * item.DonGia)<u>đ</u></h3>
+                        </div>
+                    }
+
+                    <div class="tongtien">
+                        <p @*style="margin-left: -55px;"*@>Tổng cộng: </p>
+                        <h3>@Model.Sum(m => m.SoLuong * m.DonGia).GetValueOrDefault(0).ToString("N0")<u>đ</u></h3>
+                    </div>
+                    <div class="quayve">
+                        <a href="@Request.Url.Scheme://@Request.Url.Authority/Cart/Index">
+                            <i class="fas fa-chevron-left" style="font-size: 10px; color: rgba(74, 74, 216, 0.89);margin-top: 40px;"></i>
+                            <p>Quay về giỏ hàng</p>
+                        </a>
+                        <a href="#" id="btndh"><input class="datHang" type="button" name="" value="ĐẶT HÀNG"></a>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var btn = document.querySelector('.datHang');
+        var input = document.querySelectorAll('.input');
+        btn.onclick = function () {
+            if (input[0].value.length != 0 && input[1].value.length != 0 && input[2].value.length != 0 && input[3].value.length != 0) {
+                $.ajax({
+                    url: "/XuLyGioHang/PostAddGioHang?id=" + input[0].value + "*" + input[1].value + "*" + input[2].value + "*" + input[3].value,
+                    method: "POST",
+                    data: "",
+                    contentType: "application/json",
+                    dataType: ""
+                }).done(function (response) {
+                    console.log(response);
+                    if (response.Data.status == "OK") {
+                        alert("Thông tin đơn hàng đã được ghi lại, chúng tôi sẽ sớm liên hệ bạn");
+                    }
+                    else if (response.Data.status == "NULL") {
+                        alert("Giỏ hàng trống không thể đặt hàng");
+                    }
+                    else {
+                        alert("Có lỗi xảy ra thử lại sau");
+                    }
+                }).fail(function () {
+                    alert("Có lỗi xảy ra thử lại sau");
+                })
+            }
+            else {
+                alert("Thông tin không được bỏ trống");
+            }
+        }
+    }, false)
+</script>
+
+<style>
+        
+
+        .clfw {
+            width: 100% !important;
+            clear: both !important;
+            display: block !important;
+            height: 0 !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        /* End Banner */
+
+        .left {
+            background-color: #ccc;
+            width: 55%;
+            margin-left: 2.5%;
+        }
+
+        h2 {
+            margin-top: 20px;
+            font-weight: 700;
+            color: #333;
+            font-size: 18px;
+        }
+
+        .left input {
+            border: 1px solid #00000059;
+            width: 100%;
+            height: 45px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            padding-left: 10px;
+        }
+
+        .left select {
+            margin-bottom: 20px;
+            width: 100%;
+            height: 45px;
+            border: 1px solid #00000059;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        .left textarea {
+            width: 100%;
+            height: 100px;
+            border: 1px solid #00000059;
+            border-radius: 6px;
+            color: #333;
+            font-size: 15px;
+            padding: 10px;
+        }
+
+        h2 {
+            margin-top: 20px;
+            font-weight: 700;
+            color: #333;
+            font-size: 20px;
+        }
+        /*.between p {
+        font-size: 15px;
+        border: 1px solid #00000054;
+        border-radius: 6px;
+        padding: 5px;
+        color: #333;
+        background: #f8f8f8;
+    }*/
+
+        .right {
+            width: 30%;
+            float: right;
+            margin-right: 5%;
+            margin-top: -27%;
+        }
+        /*-----Chỉnh đơn hàng----*/
+
+        .sp img {
+            width: 50%;
+            height: 50px;
+            border-radius: 6px;
+            float: left;
+            margin-top: 8px;
+        }
+        /*.sp span {
+            background: #faf901;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            text-align: center;
+            margin-top: -10px;
+            position: absolute;
+            margin-right: 80px;
+            opacity: 0.8;
+        }*/
+
+        .sp p {
+            margin-top: 15px;
+            position: absolute;
+            margin-left: 10%;
+            color: #333;
+            font-size: 15px;
+        }
+
+        .sp h3 {
+            position: absolute;
+            margin-top: 20px;
+            font-size: 15px;
+            font-family: sans-serif;
+            margin-left: 305px;
+            color: #0000006e;
+        }
+
+        .sp {
+            height: 60px;
+            border-bottom: 1px solid #33333340;
+        }
+        /*chỉnh tiền -----*/
+
+        .tien {
+            border-bottom: 1px solid #0000004f;
+            height: 60px;
+        }
+
+            .tien p {
+                margin-top: 15px;
+                color: #333333bf;
+            }
+
+            .tien h3 {
+                position: absolute;
+                margin-top: -27px;
+                font-size: 15px;
+                margin-left: 305px;
+                color: #0000006e;
+            }
+
+            .tien h5 {
+                margin-top: 10px;
+                color: #33333387;
+            }
+        /*---tổng tiền*/
+
+        .tongtien {
+            margin-top: 10px;
+        }
+
+            .tongtien p {
+                color: #0000007a;
+                font-size: 15px;
+            }
+
+            .tongtien h3 {
+                position: absolute;
+                margin-top: -27px;
+                font-size: 15px;
+                margin-left: 305px;
+                color: #0000006e;
+            }
+
+        .quayve p {
+            color: rgba(74, 74, 216, 0.89);
+            /*margin-left: -43px;*/
+            margin-top: -25px;
+            font-size: 13px;
+        }
+
+        .datHang {
+            width: 100px;
+            margin-left: 266px;
+            color: coral;
+            height: 35px;
+            background: rgba(37, 37, 207, 0.938);
+            border-radius: 20px;
+            outline: none;
+            border: none;
+            opacity: 0.6;
+            /*tùy chỉnh độ trong suốt của ảnh*/
+            transition: 0.3s;
+        }
+
+            .datHang:hover {
+                background-color: blue;
+                color: white;
+            }
+
+        #bang {
+            width: 100%;
+            height: 100%;
+            margin: 50px 20px;
+            float: left;
+        }
+</style>

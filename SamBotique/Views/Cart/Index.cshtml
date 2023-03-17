@@ -1,0 +1,234 @@
+﻿@model List<SamBotique.Models.SanPham>
+@{
+    ViewBag.Title = "Index";
+    Layout =  "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    a.nut {
+        margin-left: 17%;
+    }
+
+    .btn-info {
+        color: #fff;
+        background-color: #5cb85c;
+        border-color: #5cb85c;
+    }
+
+    .btn-danger {
+        color: #fff;
+        background-color: #ea7979;
+        border-color: #d43f3a;
+    }
+</style>
+<br />
+@if (Model == null || Model.Count == 0)
+{
+    <p class="text-info text-center">
+        Giỏ hàng của bạn rỗng!
+    </p>
+}
+else
+{
+    <div class="container">
+        @*<div id="content">*@
+
+        @*<div class="table-responsive">*@
+        <!-- Shop Products Table -->
+        <table class="table table-bordered table-hover" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Hình</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Số lượng</th>
+                    <th>Đơn giá</th>
+                    <th>Thành tiền</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="text-center"><img src="~/Content/anhdoan/@item.Anh" width="70" height="60" /> </td>
+                        <td><a> @item.TenSP </a> </td>
+                        <td>
+                            <button class="btn btn-default pull-left" onclick="dropSP('@item.MaSP')">-</button>
+                            <a href="#" class="nut">@item.SoLuong</a>
+                            <button class="btn btn-default pull-right" onclick="addSP('@item.MaSP')">+</button>
+                            @*<form action="@Url.Action("SuaSoLuong")" method="get">
+                                    <input type="hidden" name="IDSP" value="@item.idsp" />
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <input type="number" min="1" step="1" name="soluongmoi" value="@item.soluong" class="form-control" />
+                                        </div>
+                                        <div class="col-md-4">
+                                            <button type="submit" class="btn btn-primary btn-sm" style="height:34px;"> Cập nhật </button>
+                                        </div>
+                                    </div>
+                                </form>*@
+                        </td>
+                        <td width="180px;">@String.Format("{0:#,##0.##}", item.DonGia) ₫</td>
+                        <td width="150px;">@String.Format("{0:#,##0.##}", item.SoLuong * item.DonGia) ₫</td>
+
+                        <td><a onclick="deleteSP('@item.MaSP') " class="btn btn-danger">Xóa</a> </td>
+                    </tr>
+                }
+
+            </tbody>
+            <tfoot>
+                <tr>
+
+                    <td class="text-right" colspan="3">Tổng số lượng:</td>
+                    <td> @Model.Sum(m => m.SoLuong) </td>
+                    <td class="text-right">Tổng thành tiền:</td>
+                    <td colspan="2">@Model.Sum(m => m.SoLuong * m.DonGia).GetValueOrDefault(0).ToString("N0") ₫</td>
+                </tr>
+            </tfoot>
+        </table>
+        <a href="/TrangChu/Index"><button class="btn btn-info">Tiếp tục mua hàng</button></a>
+        <a href="/Cart/ThanhToan"><button class="btn btn-success">Đặt hàng</button></a>
+        <!-- #content -->
+    </div> <!-- .container -->
+}
+<br />
+
+<script>
+    function addSP(id) {
+        $.ajax({
+            url: "/XuLyGioHang/PostaddSP?id=" + id,
+            method: "POST",
+            data: "",
+            contentType: "application/json",
+            dataType: ""
+        }).done(function (response) {
+            console.log(response);
+            if (response.Data.status == "OK") {
+                location.reload();
+            }
+            else {
+                alert("Có lỗi xảy ra thử lại sau");
+            }
+        }).fail(function () {
+            alert("Có lỗi xảy ra thử lại sau");
+        })
+    }
+    function dropSP(id) {
+        $.ajax({
+            url: "/XuLyGioHang/PostdropSP?id=" + id,
+            method: "POST",
+            data: "",
+            contentType: "application/json",
+            dataType: ""
+        }).done(function (response) {
+            console.log(response);
+            if (response.Data.status == "OK") {
+                location.reload();
+            }
+            else {
+                alert("Có lỗi xảy ra thử lại sau");
+            }
+        }).fail(function () {
+            alert("Có lỗi xảy ra thử lại sau");
+        })
+    }
+    function deleteSP(id) {
+        let choice = confirm("Bạn có chắc xoá sản phẩm này");
+        if (choice == true) {
+            $.ajax({
+                url: "/xulygiohang/postdeletesp?id=" + id,
+                method: "post",
+                data: "",
+                contenttype: "application/json",
+                datatype: ""
+            }).done(function (response) {
+                console.log(response);
+                if (response.Data.status == "OK") {
+                    location.reload();
+                }
+                else {
+                    alert("có lỗi xảy ra thử lại sau");
+                }
+            }).fail(function () {
+                alert("có lỗi xảy ra thử lại sau");
+            })
+        }
+    }
+
+
+
+
+
+
+
+    @*function outcart(idsp) {
+        $.ajax({
+            url: '@Url.Action("Outcart","Cart")',
+            type: 'POST', // chọn phương thức gửi là post....phương thức gửi đi tương tự như của “ <form> ”, mặc định là “GET” nếu như các bạn không truyền vào.
+            datatype: 'JSON', // dữ liệu trả về dạng json
+            data: {
+                // Danh sách các thuộc tính sẽ gửi đi
+                id: idsp
+            },
+
+            //success: Một hàm được gọi khi request thành công.
+
+            success: function (data) {
+                if (data.success == true) {  // Sau khi gửi và kết quả trả về thành công thì gán nội dung trả về
+            // đó vào thẻ div có id = result
+                    location.reload();
+                }
+            },
+            // error Một hàm sẽ được gọi khi request fails.
+            error: function (data) {
+                alert('xảy ra lỗi');
+            }
+        });
+    }
+    function incart(idsp) {
+        $.ajax({
+            url: '@Url.Action("Incart","Cart")',
+            type: 'POST',
+            datatype: 'JSON',
+            data: {
+                id: idsp
+            },
+            success: function (data) {
+                if (data.success == true) {
+                    location.reload();
+                }
+                else {
+                    alert(data.ms);
+                }
+            },
+            error: function (data) {
+                alert('xảy ra lỗi');
+            }
+        });
+    }*@
+</script>
+<style>
+    table.table.table-bordered.table-hover {
+       position: relative;
+       top: 5cm;
+    }
+    .benefit_row {
+        padding-left: 15px;
+        padding-right: 15px;
+        /*margin-top: 4cm;*/
+    }
+    .btn-success {
+        color: #fff;
+        background-color: #5cb85c;
+        border-color: #4cae4c;
+        margin-top: 5cm;
+    }
+    .btn-info {
+        margin-top: 5cm;
+        color: #fff;
+        background-color: #5cb85c;
+        border-color: #5cb85c;
+    }
+</style>
+
+

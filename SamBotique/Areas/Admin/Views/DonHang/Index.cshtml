@@ -1,0 +1,130 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="h3 mb-2 text-gray-800">Danh sách đơn hàng</h1>
+
+<table class="table">
+    <tr>
+        <th>
+            Tên khách hàng
+        </th>
+        <th width="200px">
+            Địa chỉ
+        </th>
+        <th style="text-align: center; width:350px;">
+            SDT
+        </th>
+        <th>
+            Email
+        </th>
+        <th>
+            Thành tiền
+        </th>
+        <th>
+            Ngày tạo đơn
+        </th>
+        <th></th>
+    </tr>
+    @{
+        int Number = 0;
+        foreach (var item in ViewBag.HoaDon)
+        {
+            Number++;
+            <tr style="background-color: #c9c9c9;">
+                <th>
+                    Đơn thứ @Number của: @item.TenKH
+                </th>
+                <th width="200px">
+                    @item.DiaChi
+                </th>
+                <th style="text-align: center; width:350px;">
+                    @item.SDT
+                </th>
+                <th>
+                    @item.Email
+                </th>
+                <th>
+                    @string.Format("{0:#,##0.##}", item.TongTien) ₫
+                </th>
+                <th>
+                    @item.NgayTaoDon
+                    <a onclick="deleteDonHang('@item.MaHoaDon')" style=" cursor: pointer; margin: 0 20px;"> Xoá </a>
+                </th>
+                <th></th>
+            </tr>
+            foreach (var items in ViewBag.ChiTietHoaDon)
+            {
+                if (item.MaHoaDon == items.MaHoaDon)
+                {
+
+                    <tr>
+                        <td style="line-height:80px">
+                            @items.MaSP
+                        </td>
+                        <td style="line-height:80px">
+                            @items.TenSP
+                        </td>
+                        <td style="text-align:center">
+                            <img src="~/Content/anhdoan/@items.Hinhanh" width="30%" height="30%" />
+                        </td>
+                        <td style="line-height:80px">
+                            @items.SoLuong
+                        </td>
+                        <td style="line-height:80px">
+                            @string.Format("{0:#,##0.##}", items.Gia) đ
+                        </td>
+                    </tr>
+                }
+            }
+        }
+    }
+</table>
+<script>
+    function deleteDonHang(id) {
+        let choice = confirm("Bạn có chắc xoá đơn hàng này");
+        if (choice == true) {
+            $.ajax({
+                url: "/XuLyGioHang/PostdeleteHoaDon?id=" + id,
+                method: "POST",
+                data: "",
+                contentType: "application/json",
+                dataType: ""
+            }).done(function (response) {
+                console.log(response);
+                if (response.Data.status == "OK") {
+                    location.reload();
+                }
+                else {
+                    alert("Có lỗi xảy ra thử lại sau");
+                }
+            }).fail(function () {
+                alert("Có lỗi xảy ra thử lại sau");
+            })
+        }
+
+
+    }
+</script>
+<style>
+    td {
+        color: black;
+        font-weight: 700;
+    }
+
+    table.table {
+        box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+        border-radius: 5px;
+       /* color: #5680E9;*/
+        font-size: 107%;
+    }
+
+    .table td, .table th {
+        padding: .75rem;
+        vertical-align: top;
+        border-top: 4px solid #e3e6f0;
+        text-align: center;
+    }
+</style>

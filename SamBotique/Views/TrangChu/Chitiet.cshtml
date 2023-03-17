@@ -1,0 +1,376 @@
+﻿
+@model SamBotique.Models.SanPham
+@{
+    ViewBag.Title = "Chitiet";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+
+<div class="row">
+    <div class="col">
+        <div class="container single_product_container">
+            <div class="row">
+                <div class="col-lg-7">
+                    <div class="single_product_pics">
+                        <div class="row">
+                            <div class="col-lg-3 thumbnails_col order-lg-1 order-2">
+                                @*<div class="single_product_thumbnails">
+                                        <ul>
+                                            <li><img src="images/single_1_thumb.jpg" alt="" data-image="images/single_1.jpg"></li>
+                                            <li class="active"><img src="images/single_2_thumb.jpg" alt="" data-image="images/single_2.jpg"></li>
+                                            <li><img src="images/single_3_thumb.jpg" alt="" data-image="images/single_3.jpg"></li>
+                                        </ul>
+                                    </div>*@
+                            </div>
+                            <div class="col-lg-9 image_col order-lg-2 order-1">
+                                <div class="single_product_image">
+                                    <div class="single_product_image_background" @*style="background-image:url(images/single_2.jpg)"*@>
+                                        <img src="~/Content/anhdoan/@Model.Anh" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    @*product_color*@
+                    <div class="product_details">
+                        <div class="product_details_title">
+                            <h2>@Model.TenSP</h2>
+                        </div>
+                        <div class="free_delivery d-flex flex-row align-items-center justify-content-center">
+                            <span class="ti-truck"></span><span>free delivery</span>
+                        </div>
+                        @*<div class="original_price">$629.99</div>*@
+                        <div class="product_price">@string.Format("{0:#,##0}", Model.DonGia)đ</div>
+                        <ul class="star_rating">
+                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                            <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+                        </ul>
+                        @*<div class="product_color">
+                                <span>Select Color:</span>
+                                <span>Select Color:</span>
+                                <ul>
+                                    <li style="background: #e54e5d"></li>
+                                    <li style="background: #252525"></li>
+                                    <li style="background: #60b3f3"></li>
+                                </ul>
+                            </div>*@
+                        <div class="quantity d-flex flex-column flex-sm-row align-items-sm-center">
+                            <span>Quantity:</span>
+                            <div class="quantity_selector">
+                                <span class="minus"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                                <span id="quantity_value">1</span>
+                                <span class="plus"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                            </div>
+                            <div class="red_button add_to_cart_button"><a onclick="addToCart('@Model.MaSP')" style="cursor:pointer;" class="addToCart">Add to cart</a></div>
+                            <div class="product_favorite d-flex flex-column align-items-center justify-content-center"></div>
+                        </div>
+                    </div>
+                    <p>@Model.MoTaSP</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="/Content/js/jquery-3.2.1.min.js"></script>
+    <script src="/Content/styles/bootstrap4/popper.js"></script>
+    <script src="/Content/styles/bootstrap4/bootstrap.min.js"></script>
+    <script src="/Content/plugins/Isotope/isotope.pkgd.min.js"></script>
+    <script src="/Content/plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+    <script src="/Content/plugins/easing/easing.js"></script>
+    <script src="/Content/plugins/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+    <script src="/Content/js/single_custom.js"></script>
+    <script>
+        function addToCart(id) {
+            $.ajax({
+                url: "/XuLyGioHang/PostAddToCard?id=" + id,
+                method: "POST",
+                data: "",
+                contentType: "application/json",
+                dataType: ""
+            }).done(function (response) {
+                console.log(response);
+                if (response.Data.status == "OK") {
+                    alert("Thêm giỏ hàng thành công");
+                }
+                else if (response.Data.status == "SL") {
+                    alert("Đã tăng số lượng sản phẩm lên " + response.Data.SL);
+                }
+                else {
+                    alert("Có lỗi xảy ra thử lại sau");
+                }
+            }).fail(function () {
+                alert("Có lỗi xảy ra thử lại sau");
+            })
+        }
+    </script>
+</div>
+<style>
+
+
+
+
+
+
+        /*3. Home
+    *********************************/
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: #FFFFFF;
+            z-index: 10;
+        }
+
+        .top_nav {
+            width: 100%;
+            height: 50px;
+            background: #1e1e27;
+        }
+
+        .top_nav_left {
+            height: 50px;
+            line-height: 50px;
+            font-size: 13px;
+            color: #b5aec4;
+            text-transform: uppercase;
+        }
+        /*********************************
+    5. Single Product Section
+    *********************************/
+
+        .single_product_container {
+            margin-top: 150px;
+            padding-bottom: 80px;
+            border-bottom: solid 1px #ebebeb;
+        }
+
+        .single_product_thumbnails {
+            height: 527px;
+        }
+
+            .single_product_thumbnails ul li {
+                position: relative;
+                height: 136px;
+                margin-bottom: 30px;
+                cursor: pointer;
+            }
+
+                .single_product_thumbnails ul li::after {
+                    display: block;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    border: solid 1px #fe4c50;
+                    content: '';
+                    visibility: hidden;
+                }
+
+                .single_product_thumbnails ul li.active::after,
+                .single_product_thumbnails ul li:hover::after {
+                    visibility: visible;
+                }
+
+                .single_product_thumbnails ul li img {
+                    width: 100%;
+                }
+
+        .image_col {
+            padding-right: 30px;
+        }
+
+        .single_product_image {
+            width: 100%;
+            height: 527px;
+        }
+
+        .single_product_image_background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center center;
+        }
+
+
+        /*6. Product Details
+    *********************************/
+
+        .product_details {
+            width: 100%;
+        }
+
+        .product_details_title {
+            font-weight: 500px;
+            line-height: 30px;
+        }
+
+            .product_details_title p {
+                margin-top: 12px;
+            }
+
+        .free_delivery {
+            background: #f5f5f5;
+            margin-top: 53px;
+        }
+
+            .free_delivery i {
+                display: inline-block;
+            }
+
+            .free_delivery span:last-child {
+                display: inline-block;
+                height: 40px;
+                line-height: 40px;
+                text-transform: uppercase;
+            }
+
+            .free_delivery span:first-child {
+                display: inline-block;
+                margin-right: 19px;
+                font-size: 16px;
+                -webkit-transform: translateY(-1px);
+                -moz-transform: translateY(-1px);
+                -ms-transform: translateY(-1px);
+                -o-transform: translateY(-1px);
+                transform: translateY(-1px);
+            }
+
+        .original_price {
+            font-weight: 500;
+            color: #b9b4c7;
+            text-decoration: line-through;
+            line-height: 30px;
+            margin-top: 21px;
+        }
+
+        .product_price {
+            display: inline-block;
+            font-size: 24px;
+            color: #fe4c50;
+            font-weight: 500;
+            line-height: 30px;
+            margin-top: 2px;
+        }
+
+        .star_rating {
+            display: inline-block;
+            margin-left: 33px;
+        }
+
+            .star_rating li {
+                display: inline-block;
+                margin-right: -2px;
+                cursor: pointer;
+            }
+
+                .star_rating li i {
+                    color: #fac451;
+                }
+        /*/*/
+        .quantity {
+            width: 100%;
+            height: 40px;
+            margin-top: 23px;
+        }
+
+        .quantity_selector {
+            display: -webkit-box;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            width: 132px;
+            height: 100%;
+            border: solid 1px #e5e5e5;
+            margin-left: 29px;
+        }
+
+            .quantity_selector span {
+                font-weight: 500;
+                color: #232530;
+            }
+
+        .plus,
+        .minus {
+            padding-left: 14px;
+            padding-right: 14px;
+            cursor: pointer;
+        }
+
+            .plus:hover,
+            .minus:hover {
+                color: #b5aec4;
+            }
+
+        .add_to_cart_button {
+            width: 160px;
+            margin-left: 19px;
+            font-size: 12px /*!important*/;
+        }
+
+        .product_favorite {
+            width: 40px;
+            height: 100%;
+            margin-left: 22px;
+            border: solid 1px #e5e5e5;
+            product_image: border-radius: 2px;
+            cursor: pointer;
+        }
+
+            .product_favorite:hover::after {
+                color: #fe4c50;
+            }
+
+            .product_favorite::after {
+                font-family: 'FontAwesome';
+                content: '\f08a';
+                font-size: 14px;
+            }
+
+            .product_favorite.active::after {
+                content: '\f004';
+                color: #fe4c50;
+            }
+
+
+        .col-lg-7 {
+            -ms-flex: 0 0 58.333333%;
+            flex: 0 0 58.333333%;
+            max-width: 58.333333%;
+            margin-top: 1.5cm;
+        }
+
+        .product_details {
+            width: 100%;
+            margin-top: 1.5cm;
+        }
+
+        p {
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            line-height: 1.7;
+            font-weight: 500;
+            color: #989898;
+            -webkit-font-smoothing: antialiased;
+            /*-webkit-text-shadow: rgba(0, 0, 0, .01) 0 0 1px;*/
+            text-shadow: rgb(0 0 0 / 1%) 0 0 1px;
+            margin-top: 0.5cm;
+        }
+</style>
